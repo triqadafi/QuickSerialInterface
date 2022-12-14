@@ -40,26 +40,26 @@ void QuickSerialInterface::loop(){
     // Serial.print("[");
     // Serial.print(_char);
     // Serial.print("]");
-    UB_USART_buffer[UB_USART_index++] = _char;
+    QSI_USART_buffer[QSI_USART_index++] = _char;
     if(_char == '\n') {
-      UB_USART_buffer[UB_USART_index] = '\0';
-      UB_USART_index = 0;
-      if(strstr(UB_USART_buffer, UB_LOCK_BYTES) != NULL){
+      QSI_USART_buffer[QSI_USART_index] = '\0';
+      QSI_USART_index = 0;
+      if(strstr(QSI_USART_buffer, QSI_LOCK_BYTES) != NULL){
         // Serial.print("[+++]");
-        UB_USART_flag = true;
+        QSI_USART_flag = true;
       }
       break;
     }
   }
 
-  if(UB_USART_flag){
+  if(QSI_USART_flag){
     // Clean Buffer
     char *_buffer;
-    char *_token = multi_tok(UB_USART_buffer, UB_LOCK_BYTES);
+    char *_token = multi_tok(QSI_USART_buffer, QSI_LOCK_BYTES);
 
     while (_token != NULL) {
       _buffer = _token;
-      _token = multi_tok(NULL, UB_LOCK_BYTES);
+      _token = multi_tok(NULL, QSI_LOCK_BYTES);
     }
 
     // Process Buffer
@@ -89,7 +89,7 @@ void QuickSerialInterface::loop(){
     QSI_Callback();
 
 
-    UB_USART_flag = false;
+    QSI_USART_flag = false;
   }
 }
 

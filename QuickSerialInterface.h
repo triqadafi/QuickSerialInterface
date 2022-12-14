@@ -17,7 +17,7 @@
 typedef std::function<void(void)> QSI_function_t;
 
 #define QSI_PARAMETERS_TOTAL 5
-#define UB_LOCK_BYTES "FI#"
+#define QSI_LOCK_BYTES "FI#"
 
 #define QSI_Serial QSI_USBSerial
 void TRQDF_onRead();
@@ -57,9 +57,9 @@ class QuickSerialInterface
 
     int SYS_State;
 
-    char UB_USART_buffer[72] = {0};  // a string to hold incoming data
-    bool UB_USART_flag = false;        // whether the string is complete
-    uint8_t UB_USART_index = 0;
+    char QSI_USART_buffer[72] = {0};  // a string to hold incoming data
+    bool QSI_USART_flag = false;        // whether the string is complete
+    uint8_t QSI_USART_index = 0;
 
     uint8_t QSI_Action = 0;  // a string to hold incoming data
     unsigned long QSI_Parameters[QSI_PARAMETERS_TOTAL] = {0};  // a string to hold incoming data
