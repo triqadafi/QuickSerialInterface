@@ -1,26 +1,23 @@
 //
 // QuickSerialInterface Library by @triqadafi
-// TRQDF is a shorthand of triqadafi
+// TQDF is a shorthand of triqadafi
 // 2022 (C) www.triqada.fi
 //
-//
-// Big thanks to the source of inspiration: 
-//    https://www.semesin.com/project/2018/04/13/dinamik-menu-dan-submenu-dengan-keypad-dan-lcd-16x2-menggunakan-arduino/
-//
+
 
 #include <Arduino.h>
 
-#ifndef TRQDF_QuickSerialInterface_h
-#define TRQDF_QuickSerialInterface_h
+#ifndef TQDF_QuickSerialInterface_h
+#define TQDF_QuickSerialInterface_h
 #include <stdint.h>
 
 typedef std::function<void(void)> QSI_function_t;
 
 #define QSI_PARAMETERS_TOTAL 5
-#define QSI_LOCK_BYTES "FI#"
+#define QSI_LOCK_BYTES "TQ#"
 
 #define QSI_Serial QSI_USBSerial
-void TRQDF_onRead();
+void TQDF_onRead();
 
 /**
  * @brief test coba coba tentang brief
@@ -32,7 +29,7 @@ class QuickSerialInterface
 {
   public:
     /**
-     * @brief Construct a new TRQDF_QuickSerialInterface object
+     * @brief Construct a new TQDF_QuickSerialInterface object
      * 
      * @param _keypad keypad instance
      * @param _lcd_i2c LCD i2c instance
