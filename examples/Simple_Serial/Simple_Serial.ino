@@ -17,7 +17,7 @@
 
 QuickSerialInterface SerialInterface(&SerialInterface_onRead);
 
-unsigned long FI_MAIN_millis = 0;
+unsigned long TQDF_MAIN_millis = 0;
 
 void setup() {
   SerialInterface.begin(115200, true);
@@ -27,8 +27,8 @@ void setup() {
 void loop() {
   SerialInterface.loop();
   
-  if(millis() - FI_MAIN_millis > MAIN_PERIOD){
-    FI_MAIN_millis = millis();
+  if(millis() - TQDF_MAIN_millis > MAIN_PERIOD){
+    TQDF_MAIN_millis = millis();
     digitalWrite(LED_BUILTIN, !digitalRead(LED_BUILTIN));
     Serial.print("Waiting Action... ex: TQ#99=10;0;12;");
 
