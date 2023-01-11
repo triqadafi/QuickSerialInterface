@@ -10,10 +10,10 @@
 //
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - //
 
-#include <Arduino.h>
 #include <QuickSerialInterface.h>
+// #include "src/QuickSerialInterface/QuickSerialInterface.h"
 
-#define MAIN_PERIOD 100
+#define MAIN_PERIOD 1000
 
 QuickSerialInterface SerialInterface(&SerialInterface_onRead);
 
@@ -30,7 +30,8 @@ void loop() {
   if(millis() - FI_MAIN_millis > MAIN_PERIOD){
     FI_MAIN_millis = millis();
     digitalWrite(LED_BUILTIN, !digitalRead(LED_BUILTIN));
-    
+    Serial.print("Waiting Action... ex: TQ#99=10;0;12;");
+
   }
 }
 
