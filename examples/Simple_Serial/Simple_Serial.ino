@@ -15,17 +15,17 @@
 
 #define MAIN_PERIOD 100
 
-QuickSerialInterface tqdf_interface(&TQDF_onRead);
+QuickSerialInterface SerialInterface(&SerialInterface_onRead);
 
 unsigned long FI_MAIN_millis = 0;
 
 void setup() {
-  tqdf_interface.begin(115200, true);
+  SerialInterface.begin(115200, true);
   pinMode(LED_BUILTIN, OUTPUT);
 }
 
 void loop() {
-  tqdf_interface.loop();
+  SerialInterface.loop();
   
   if(millis() - FI_MAIN_millis > MAIN_PERIOD){
     FI_MAIN_millis = millis();
@@ -34,31 +34,31 @@ void loop() {
   }
 }
 
-void TQDF_onRead(){
-  switch (tqdf_interface.readAction()){
+void SerialInterface_onRead(){
+  switch (SerialInterface.readAction()){
     case 0:
       // do other stuff
       Serial.print("Execute Action 0");
       Serial.println();
       delay(1);
       Serial.print("Parameter 0: ");
-      Serial.print(tqdf_interface.readParameter(0));
+      Serial.print(SerialInterface.readParameter(0));
       Serial.println();
       delay(1);
       Serial.print("Parameter 1: ");
-      Serial.print(tqdf_interface.readParameter(1));
+      Serial.print(SerialInterface.readParameter(1));
       Serial.println();
       delay(1);
       Serial.print("Parameter 2: ");
-      Serial.print(tqdf_interface.readParameter(2));
+      Serial.print(SerialInterface.readParameter(2));
       Serial.println();
       delay(1);
       Serial.print("Parameter 3: ");
-      Serial.print(tqdf_interface.readParameter(3));
+      Serial.print(SerialInterface.readParameter(3));
       Serial.println();
       delay(1);
       Serial.print("Parameter 4: ");
-      Serial.print(tqdf_interface.readParameter(4));
+      Serial.print(SerialInterface.readParameter(4));
       Serial.println();
       delay(1);
 
@@ -68,23 +68,23 @@ void TQDF_onRead(){
       Serial.println();
       delay(1);
       Serial.print("Parameter 0: ");
-      Serial.print(tqdf_interface.readParameter(0));
+      Serial.print(SerialInterface.readParameter(0));
       Serial.println();
       delay(1);
       Serial.print("Parameter 1: ");
-      Serial.print(tqdf_interface.readParameter(1));
+      Serial.print(SerialInterface.readParameter(1));
       Serial.println();
       delay(1);
       Serial.print("Parameter 2: ");
-      Serial.print(tqdf_interface.readParameter(2));
+      Serial.print(SerialInterface.readParameter(2));
       Serial.println();
       delay(1);
       Serial.print("Parameter 3: ");
-      Serial.print(tqdf_interface.readParameter(3));
+      Serial.print(SerialInterface.readParameter(3));
       Serial.println();
       delay(1);
       Serial.print("Parameter 4: ");
-      Serial.print(tqdf_interface.readParameter(4));
+      Serial.print(SerialInterface.readParameter(4));
       Serial.println();
       delay(1);
       break;
