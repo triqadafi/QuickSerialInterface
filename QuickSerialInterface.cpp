@@ -1,29 +1,14 @@
 
 #include "QuickSerialInterface.h"
 
+QuickSerialInterface::QuickSerialInterface(){
 
-
-QuickSerialInterface::QuickSerialInterface(void(*callback)(void)){
-  QSI_Callback = callback;
-  // Serial.printf("%p", callback);
-  // Serial.printf("%p", QSI_Callback);
 }
 
-void QuickSerialInterface::begin(unsigned long baudrate, bool wait_connect){
-  Serial.begin(115200);
-  pinMode(LED_BUILTIN, OUTPUT);
-  digitalWrite(LED_BUILTIN, LOW);
-  while (!Serial && wait_connect) {
-    digitalWrite(LED_BUILTIN, LOW);
-    delay(100);
-    digitalWrite(LED_BUILTIN, HIGH);
-    delay(100);
-    digitalWrite(LED_BUILTIN, LOW);
-    delay(100);
-    digitalWrite(LED_BUILTIN, HIGH);
-    delay(700);
-  }
-  digitalWrite(LED_BUILTIN, HIGH);
+void QuickSerialInterface::begin(Stream* serial, void(*callback)(void)){
+  QSI_Stream = serial;
+  QSI_Callback = callback;
+
 }
 uint8_t QuickSerialInterface::readAction(){
   return QSI_Action;
@@ -35,17 +20,17 @@ unsigned long QuickSerialInterface::readParameter(int parameter_number){
 
 
 void QuickSerialInterface::loop(){
-  while(Serial.available()){
-    char _char = Serial.read();
-    // Serial.print("[");
-    // Serial.print(_char);
-    // Serial.print("]");
+  while(QSI_Stream->available()){
+    char _char = QSI_Stream->read();
+    // QSI_Stream->print("[");
+    // QSI_Stream->print(_char);
+    // QSI_Stream->print("]");
     QSI_USART_buffer[QSI_USART_index++] = _char;
     if(_char == '\n') {
       QSI_USART_buffer[QSI_USART_index] = '\0';
       QSI_USART_index = 0;
       if(strstr(QSI_USART_buffer, QSI_LOCK_BYTES) != NULL){
-        // Serial.print("[+++]");
+        // QSI_Stream->print("[+++]");
         QSI_USART_flag = true;
       }
       break;
@@ -73,13 +58,13 @@ void QuickSerialInterface::loop(){
     char *token3 = multi_tok(_buffer2, ";");
     while(token3 != NULL)
     {
-      // Serial.print("Token index. ");
-      // Serial.print(parameter_index);
-      // Serial.print(" : ");
-      // Serial.print(token3);
-      // Serial.print(atol(token3));
-      // Serial.println();
-      QSI_Parameters[parameter_index] = atol(token3);
+      // QSI_Stream->print("Token index. ");
+      // QSI_Stream->print(parameter_index);
+      // QSI_Stream->print(" : ");
+      // QSI_Stream->print(token3);
+      // QSI_Stream->print(atol(token3));
+      // QSI_Stream->println();
+      QSI_Parameters[parameter_index] = atof(token3);
 
       token3 = multi_tok(NULL,";");
       parameter_index++;

@@ -6,6 +6,8 @@
 
 
 #include <Arduino.h>
+#include <HardwareSerial.h>
+#include <SoftwareSerial.h>
 
 #ifndef TQDF_QuickSerialInterface_h
 #define TQDF_QuickSerialInterface_h
@@ -16,7 +18,6 @@ typedef std::function<void(void)> QSI_function_t;
 #define QSI_PARAMETERS_TOTAL 5
 #define QSI_LOCK_BYTES "TQ#"
 
-#define QSI_Serial QSI_USBSerial
 void TQDF_onRead();
 
 /**
@@ -31,24 +32,22 @@ class QuickSerialInterface
     /**
      * @brief Construct a new TQDF_QuickSerialInterface object
      * 
-     * @param _keypad keypad instance
-     * @param _lcd_i2c LCD i2c instance
-     * @param _main_menu main menu variable
      */
-    QuickSerialInterface(void(*callback)(void));
+    QuickSerialInterface();
     // QuickSerialInterface();
 
     /**
      * @brief Menu idle state
      * 
      */
-    void begin(unsigned long baudrate, bool wait_connect);
+    void begin(Stream* serial, void(*callback)(void));
     void loop();
     void onRead(void(*callback)(void));
     uint8_t readAction();
     unsigned long  readParameter(int parameter_number);
 
   private:
+    Stream* QSI_Stream; 
     void(*QSI_Callback)(void);
     void* displayText();
 
