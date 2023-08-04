@@ -44,7 +44,7 @@ class QuickSerialInterface
     void loop();
     void onRead(void(*callback)(void));
     uint8_t readAction();
-    unsigned long  readParameter(int parameter_number);
+    double readParameter(int parameter_number);
 
   private:
     Stream* QSI_Stream; 
@@ -58,7 +58,7 @@ class QuickSerialInterface
     uint8_t QSI_USART_index = 0;
 
     uint8_t QSI_Action = 0;  // a string to hold incoming data
-    unsigned long QSI_Parameters[QSI_PARAMETERS_TOTAL] = {0};  // a string to hold incoming data
+    double QSI_Parameters[QSI_PARAMETERS_TOTAL] = {0};  // a string to hold incoming data
     char *multi_tok(char *input, char *delimiter);
 };
 #endif

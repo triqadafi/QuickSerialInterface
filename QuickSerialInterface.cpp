@@ -14,7 +14,7 @@ uint8_t QuickSerialInterface::readAction(){
   return QSI_Action;
 }
 
-unsigned long QuickSerialInterface::readParameter(int parameter_number){
+double QuickSerialInterface::readParameter(int parameter_number){
   return QSI_Parameters[parameter_number];
 }
 
