@@ -44,6 +44,9 @@ class QuickSerialInterface
     void loop();
     void onRead(void(*callback)(void));
     uint8_t readAction();
+    void clearACK();
+    bool isACK();
+    void sendACK(int _code);
     double readParameter(int parameter_number);
 
   private:
@@ -51,6 +54,7 @@ class QuickSerialInterface
     void(*QSI_Callback)(void);
     void* displayText();
 
+    int QSI_ACK = 0;
     int SYS_State;
 
     char QSI_USART_buffer[72] = {0};  // a string to hold incoming data

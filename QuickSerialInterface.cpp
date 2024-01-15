@@ -18,7 +18,17 @@ double QuickSerialInterface::readParameter(int parameter_number){
   return QSI_Parameters[parameter_number];
 }
 
-
+void QuickSerialInterface::clearACK(){
+  QSI_ACK = 0;
+}
+bool QuickSerialInterface::isACK(){
+  return QSI_ACK;
+}
+void QuickSerialInterface::sendACK(int _code){
+  QSI_Stream->print("TQ#200=");
+  QSI_Stream->print(_code);
+  QSI_Stream->println(";0;");
+}
 void QuickSerialInterface::loop(){
   while(QSI_Stream->available()){
     char _char = QSI_Stream->read();
@@ -70,7 +80,9 @@ void QuickSerialInterface::loop(){
       parameter_index++;
       if(parameter_index == QSI_PARAMETERS_TOTAL) break;
     }
-
+    if(QSI_Action == 200){
+      QSI_ACK = 1;
+    }
     QSI_Callback();
 
 
