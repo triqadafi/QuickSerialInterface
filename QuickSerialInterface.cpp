@@ -35,7 +35,9 @@ void QuickSerialInterface::loop(){
     // QSI_Stream->print("[");
     // QSI_Stream->print(_char);
     // QSI_Stream->print("]");
-    QSI_USART_buffer[QSI_USART_index++] = _char;
+    if(_char > 0){
+      QSI_USART_buffer[QSI_USART_index++] = _char;
+    }
     if(_char == '\n') {
       QSI_USART_buffer[QSI_USART_index] = '\0';
       QSI_USART_index = 0;
