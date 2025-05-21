@@ -15,12 +15,12 @@
 
 #define MAIN_PERIOD 1000
 
-QuickSerialInterface SerialInterface(&SerialInterface_onRead);
+QuickSerialInterface SerialInterface;
 
 unsigned long TQDF_MAIN_millis = 0;
 
 void setup() {
-  SerialInterface.begin(115200, true);
+  SerialInterface.begin(Serial, &SerialInterface_onRead);
   pinMode(LED_BUILTIN, OUTPUT);
 }
 
